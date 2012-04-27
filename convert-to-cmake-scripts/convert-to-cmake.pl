@@ -28,7 +28,7 @@ foreach my $d (@dirs)
 
     print "Found [@subdirs] for $d\n";
 
-    if ($d =~ m!\Asrc/!)
+    if ($d eq "src")
     {
         $dirs{$d}->{'text'} = <<'EOF'
 SET(tap_LIB_SRCS
@@ -70,6 +70,8 @@ EOF
             if ($d eq '.')
             {
                 $dirs{$d}->{text} .= <<'EOF';
+INCLUDE( "${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake" )
+
 FUNCTION (LIBTAP_TEST_TARGET target)
     ADD_EXECUTABLE( "${target}" "test.c")
     set_target_properties( "${target}" PROPERTIES OUTPUT_NAME "test")
@@ -104,3 +106,4 @@ foreach my $d (@dirs)
 {
     io->file("$d/CMakeLists.txt")->print($dirs{$d}->{text} . "\n");
 }
+io->file("/home/shlomif/progs/freecell/hg/fc-solve/fc-solve/source/Common.cmake") > io->file("./Common.cmake");
