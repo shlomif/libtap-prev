@@ -1,8 +1,9 @@
 Quick Installation
 
-    ./configure
+    mkdir build
+    cd build
+    cmake ..
     make
     make check
     make install
 
-Run "configure --help" for additional options.
