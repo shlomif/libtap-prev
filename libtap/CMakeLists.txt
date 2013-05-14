@@ -1,4 +1,4 @@
-INCLUDE( "${CMAKE_CURRENT_SOURCE_DIR}/Common.cmake" )
+INCLUDE(Shlomif_Common)
 
 FUNCTION (LIBTAP_TEST_TARGET target)
     ADD_EXECUTABLE( "${target}" "test.c")
