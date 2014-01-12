@@ -87,6 +87,8 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 INCLUDE(CPack)
 
+INCLUDE_DIRECTORIES( BEFORE "${CMAKE_CURRENT_SOURCE_DIR}/src" )
+
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(tests)
 ADD_CUSTOM_TARGET(check true DEPENDS check__tests__diag check__tests__fail check__tests__ok__ok check__tests__ok__ok-hash check__tests__ok__ok-numeric check__tests__pass check__tests__plan__no-tests check__tests__plan__no_plan check__tests__plan__not-enough-tests check__tests__plan__sane check__tests__plan__skip_all check__tests__plan__too-many-plans check__tests__plan__too-many-tests check__tests__skip check__tests__todo)
