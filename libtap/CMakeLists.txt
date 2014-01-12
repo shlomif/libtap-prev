@@ -62,9 +62,45 @@ ELSE(WIN32 AND NOT UNIX)
 ENDIF(WIN32 AND NOT UNIX)
 SET(CPACK_PACKAGE_EXECUTABLES)
 
+### This is to set the RPATH correctly, so when installed under a prefix
+### the executables will find the libraries.
+###
+### See:
+###
+### http://www.cmake.org/Wiki/CMake_RPATH_handling
+###
+### (Taken from that wiki page)
+
+# use, i.e. don't skip the full RPATH for the build tree
+SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+
+# when building, don't use the install RPATH already
+# (but later on when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+
+# the RPATH to be used when installing
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}")
+
+# add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 INCLUDE(CPack)
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(tests)
 ADD_CUSTOM_TARGET(check true DEPENDS check__tests__diag check__tests__fail check__tests__ok__ok check__tests__ok__ok-hash check__tests__ok__ok-numeric check__tests__pass check__tests__plan__no-tests check__tests__plan__no_plan check__tests__plan__not-enough-tests check__tests__plan__sane check__tests__plan__skip_all check__tests__plan__too-many-plans check__tests__plan__too-many-tests check__tests__skip check__tests__todo)
+
+CONFIGURE_FILE(
+    ${CMAKE_CURRENT_SOURCE_DIR}/${CPACK_PACKAGE_NAME}.pc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${CPACK_PACKAGE_NAME}.pc
+    @ONLY
+    )
+
+INSTALL(
+    FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${CPACK_PACKAGE_NAME}.pc"
+    DESTINATION
+        "lib${LIB_SUFFIX}/pkgconfig"
+)
 

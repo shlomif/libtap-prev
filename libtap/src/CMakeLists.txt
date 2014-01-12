@@ -6,8 +6,8 @@ add_library(tap SHARED ${tap_LIB_SRCS})
 
 target_link_libraries(tap)
 
-set_target_properties(tap PROPERTIES VERSION 4.2.0 SOVERSION 4)
-install(TARGETS tap DESTINATION lib)
+set_target_properties(tap PROPERTIES VERSION 0.0.0 SOVERSION 0)
+install(TARGETS tap DESTINATION "lib${LIB_SUFFIX}")
 
 INSTALL(
     FILES

@@ -1,0 +1,11 @@
+prefix="@CMAKE_INSTALL_PREFIX@"
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib@LIB_SUFFIX@
+includedir=${prefix}/include
+
+Name:  libtap
+Description: C Library for Testing That Emits TAP (= Test Anything Protocol)
+Version: @VERSION@
+URL: http://www.shlomifish.org/open-source/projects/libtap/
+Libs: -L${libdir} -ltap
+Cflags: -I${includedir}
