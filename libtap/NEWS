@@ -1,3 +1,11 @@
+libtap-1.2.1 (2014-01-12):
+--------------------------
+
+1. Convert the build system to CMake. See INSTALL for installation
+details.
+
+2. Now generating a libtap.pc pkg-config file.
+
 tap-1.03 (2010-08-16):
 ----------------------
 
