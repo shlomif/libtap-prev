@@ -1,3 +1,9 @@
+libtap-1.10.0 (2014-01-15):
+--------------------------
+
+1. Bump the version number beyond 1.03 so it will be easy to upgrade from
+1.03 (nothing was changed in the code).
+
 libtap-1.2.1 (2014-01-12):
 --------------------------
 
