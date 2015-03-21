@@ -15,7 +15,12 @@ FUNCTION (LIBTAP_TEST_TARGET target)
         "sh" "test.t"
         )
 
-    FOREACH (file_to_copy "test.t" "test.pl")
+    FOREACH (prototype_to_copy "test.t")
+     CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/prototypes/${prototype_to_copy}" "${CMAKE_CURRENT_BINARY_DIR}/${prototype_to_copy}" COPYONLY)
+    ENDFOREACH (prototype_to_copy)
+
+
+    FOREACH (file_to_copy "test.pl")
         CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${file_to_copy}" "${CMAKE_CURRENT_BINARY_DIR}/${file_to_copy}" COPYONLY)
     ENDFOREACH (file_to_copy)
 ENDFUNCTION (LIBTAP_TEST_TARGET target)
@@ -91,6 +96,8 @@ INCLUDE_DIRECTORIES( BEFORE "${CMAKE_CURRENT_SOURCE_DIR}/src" )
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(tests)
+
+
 ADD_CUSTOM_TARGET(check true DEPENDS check__tests__diag check__tests__fail check__tests__ok__ok check__tests__ok__ok-hash check__tests__ok__ok-numeric check__tests__pass check__tests__plan__no-tests check__tests__plan__no_plan check__tests__plan__not-enough-tests check__tests__plan__sane check__tests__plan__skip_all check__tests__plan__too-many-plans check__tests__plan__too-many-tests check__tests__skip check__tests__todo)
 
 CONFIGURE_FILE(

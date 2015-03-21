@@ -41,6 +41,8 @@ static char *todo_msg = NULL;
 static char *todo_msg_fixed = "libtap malloc issue";
 static int todo = 0;
 static int test_died = 0;
+static const  int exit_die  = 255;       /* exit-code on die() */
+
 
 /* Encapsulate the pthread code in a conditional.  In the absence of
    libpthread the code does nothing */
@@ -199,7 +201,7 @@ plan_no_plan(void)
 		fprintf(stderr, "You tried to plan twice!\n");
 		test_died = 1;
 		UNLOCK;
-		exit(255);
+		exit(exit_die);
 	}
 
 	have_plan = 1;
@@ -207,7 +209,7 @@ plan_no_plan(void)
 
 	UNLOCK;
 
-	return 0;
+	return 1;
 }
 
 /*
@@ -226,7 +228,7 @@ plan_skip_all(const char *reason)
 	printf("1..0");
 
 	if(reason != NULL)
-		printf(" # Skip %s", reason);
+		printf(" # SKIP %s", reason);
 
 	printf("\n");
 
@@ -250,14 +252,14 @@ plan_tests(unsigned int tests)
 		fprintf(stderr, "You tried to plan twice!\n");
 		test_died = 1;
 		UNLOCK;
-		exit(255);
+		exit(exit_die);
 	}
 
 	if(tests == 0) {
 		fprintf(stderr, "You said to run 0 tests!  You've got to run something.\n");
 		test_died = 1;
 		UNLOCK;
-		exit(255);
+		exit(exit_die);
 	}
 
 	have_plan = 1;
@@ -266,7 +268,7 @@ plan_tests(unsigned int tests)
 
 	UNLOCK;
 
-	return 0;
+	return 1;
 }
 
 unsigned int
@@ -410,7 +412,7 @@ _cleanup(void)
 	}
 
 	if(test_died) {
-		diag("Looks like your test died just after %d.", test_count);
+ 	        diag("Looks like your test exited with %d just after %d.", exit_die, test_count);
 		UNLOCK;
 		return;
 	}
@@ -423,22 +425,22 @@ _cleanup(void)
 	}
 
 	if((have_plan && !no_plan) && e_tests < test_count) {
-		diag("Looks like you planned %d tests but ran %d extra.",
-		     e_tests, test_count - e_tests);
+		diag("Looks like you planned %d test%s but ran %d extra.",
+		     e_tests, e_tests == 1 ? "":"s", test_count - e_tests);
 		UNLOCK;
 		return;
 	}
 
 	if((have_plan || !no_plan) && e_tests > test_count) {
-		diag("Looks like you planned %d tests but only ran %d.",
-		     e_tests, test_count);
+		diag("Looks like you planned %d test%s but ran %d.",
+		     e_tests, e_tests == 1 ? "":"s", test_count);
 		UNLOCK;
 		return;
 	}
 
 	if(failures)
-		diag("Looks like you failed %d tests of %d.", 
-		     failures, test_count);
+		diag("Looks like you failed %d test%s of %d.", 
+		     failures, failures == 1 ? "":"s", test_count);
 
 	UNLOCK;
 }
