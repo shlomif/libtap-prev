@@ -88,7 +88,7 @@ int plan_tests(unsigned int tests);
  *	x = do_something();
  *	if (!checkable(x) || check_value(x))
  *		pass("do_something() returned a valid value");
- *	else		
+ *	else
  *		fail("do_something() returned an invalid value");
  */
 # define pass(...) ok(1, __VA_ARGS__)
@@ -174,7 +174,7 @@ int skip(unsigned int n, const char *fmt, ...) PRINTF_ATTRIBUTE(2, 3);
  * This way, should a test start to succeed unexpectedly, tools like prove(1)
  * will indicate this and you can move the test out of the todo block.  This
  * is much more useful than simply commenting out (or '#if 0') the tests.
- * 
+ *
  * From the Test::More documentation:
  *   If it's something the programmer hasn't done yet, use TODO.  This is for
  *   any code you haven't written yet, or bugs you have yet to fix, but want to

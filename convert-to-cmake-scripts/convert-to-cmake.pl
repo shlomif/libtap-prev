@@ -21,7 +21,7 @@ foreach my $d (@dirs)
 {
     my @lines = io->file("$d/Makefile.am")->slurp;
 
-    my @subdirs = map { /^SUBDIRS\s*(?:\+=|=)\s*(.*)/ ? (split/\s+/,$1):() } 
+    my @subdirs = map { /^SUBDIRS\s*(?:\+=|=)\s*(.*)/ ? (split/\s+/,$1):() }
         @lines;
 
     $dirs{$d}->{'subdirs'} = [@subdirs];
