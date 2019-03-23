@@ -38,7 +38,10 @@
  *	plan_tests(13);
  */
 int plan_tests(unsigned int tests);
-
+static int plan(unsigned int tests)
+{
+    return plan_tests(tests);
+}
 #if (!defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L) && !defined(__GNUC__)
 # error "Needs gcc or C99 compiler for variadic macros."
 #else
