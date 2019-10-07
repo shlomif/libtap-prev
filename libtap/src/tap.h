@@ -38,7 +38,7 @@
  *	plan_tests(13);
  */
 int plan_tests(unsigned int tests);
-static int plan(unsigned int tests)
+static inline int plan(unsigned int tests)
 {
     return plan_tests(tests);
 }
