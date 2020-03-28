@@ -39,8 +39,11 @@ main(int argc, char *argv[])
 	diag("Returned: %d", rc);
 
 	/* Make sure the failure is passed through */
-	ok(1, "test 1") || diag("ok() failed, and shouldn't");
-	ok(0, "test 2") || diag("ok() passed, and shouldn't");
+	if (!ok(1, "test 1"))
+		diag("ok() failed, and shouldn't");
+
+	if (!ok(0, "test 2"))
+		diag("ok() passed, and shouldn't");
 
 	return exit_status();
 }
