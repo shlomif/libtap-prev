@@ -24,6 +24,10 @@
  * SUCH DAMAGE.
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * plan_tests - announce the number of tests you plan to run
  * @tests: the number of tests
@@ -247,3 +251,7 @@ int plan_no_plan(void);
 int plan_skip_all(const char *reason);
 
 #endif /* C99 or gcc */
+
+#ifdef __cplusplus
+}
+#endif
