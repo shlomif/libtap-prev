@@ -150,9 +150,10 @@ _gen_result(int ok, const char *func, const char *file, unsigned int line,
 
 	printf("\n");
 
-	if(!ok)
+	if(!ok) {
 		diag("    Failed %stest (%s:%s() at line %d)",
 		     todo ? "(TODO) " : "", file, func, line);
+    }
 
 	free(local_test_name);
 
@@ -439,9 +440,10 @@ _cleanup(void)
 		return;
 	}
 
-	if(failures)
+	if(failures) {
 		diag("Looks like you failed %d test%s of %d.",
 		     failures, failures == 1 ? "":"s", test_count);
+    }
 
 	UNLOCK;
 }
